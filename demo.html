@@ -1,0 +1,39 @@
+<html>
+	<head>
+		<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+		<link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
+		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+		<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+		<!--This is the javascript from this gist-->
+		<script src="https://rawgit.com/maclennann/5a6cb955eec6df664229/raw/baad05154f1604890b3837633da69adc699e4747/jquery-simplevalidator.js"></script>
+	</head>
+	<body>
+		<input id="input" type="text" value="lawlwut" />
+		<button id="action" type="submit">do it? </button>
+		<br/>
+		<span id="output"/>
+
+		<script type="text/javascript">
+			$(function(){
+				// This could just as easily have been in-lined in this case, but
+				// I left it separate since that's how you should probably use it.
+				// This just returns a promise, then waits two seconds to return
+				// some text.
+				var fakeValidator = function(text) {
+					var deferred = new $.Deferred();
+
+					setTimeout(function() {
+						deferred.resolve("two seconds ago, you told me: " + text);
+					}, 2000);
+
+					return deferred.promise();
+				};
+
+				// Here's where the magic is happening!
+				$("#action").simpleValidator("#input", "#output", fakeValidator);
+					
+			});
+		</script>
+	</body>
+</html>
