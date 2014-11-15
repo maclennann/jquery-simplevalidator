@@ -26,6 +26,27 @@ $("#button").simpleValidator("#textbox", "#messagespan", validationFunction);
 
 ### Demo ###
 
-You can see that demo file live [here](http://cdn.rawgit.com/maclennann/5a6cb955eec6df664229/raw/c5bce6d6de314538ae127ffe95023fddf0eb72c4/demo.html).
+There is a demo file in this gist. You can see it live [here](http://cdn.rawgit.com/maclennann/5a6cb955eec6df664229/raw/c5bce6d6de314538ae127ffe95023fddf0eb72c4/demo.html).
 
-Otherwise, see the demo document elsewhere in this gist.
+### Advanced Usage ###
+
+This is getting a little bit into "use a real plugin" territory, but javascript's golden rule is "you can make anything do anything if you try hard enough."
+
+So maybe you want your button to validate an entire form instead of just a single input textbox? Sure.
+
+```javascript
+    // A small abuse of simpleValidator by not providing an inputSelector and making our in-line
+    // validation function read the entire form.
+    $('#formsubmit').simpleValidator(null, "#validation", function() {
+        event.preventDefault();
+        var item1 = $("#item1").val();
+        var item2 = $("#item2").val();
+        var item3 = $("#item3").val();
+        var item4 = $("#item4").val();
+        var item5 = $("#item5").val();
+
+        var url = '/validate/my/form';
+
+        return an.ajax.call.wrapper(url, item1, item2, item3, item4, item5);
+    });
+```
