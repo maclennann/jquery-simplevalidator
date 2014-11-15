@@ -1,57 +1,74 @@
-// A simple JQuery plugin that runs the value in a text box against a validation
-// action and prints the results to a div.
-//
-// Binds to a button and runs on-click.
-//
-// dataSelector must be a selector that targets a textbox (your input for validation)
-// resultSelector must be a selector that targets a div into which the validation results are printed
-// validationAction must be a function that expects a string and returns a promise
-$.fn.simpleValidator = function (dataSelector, resultSelector, validationAction) {
+			// A simple JQuery plugin that runs the value in a text box against a validation
+			// action and prints the results to a div.
+			//
+			// Binds to a button and runs on-click.
+			//
+			// dataSelector must be a selector that targets a textbox (your input for validation)
+			// resultSelector must be a selector that targets a div into which the validation results are printed
+			// validationAction must be a function that expects a string and returns a promise
+			$.fn.simpleValidator = function(dataSelector, resultSelector, validationAction) {
 
-    // Store all this so the closure has access when we actually have to run it.
-    var button = this;
-    var results = $(resultSelector);
-    var action = validationAction;
-    var textBox = $(dataSelector);
+				// Store all this so the closure has access when we actually have to run it.
+				var button = this;
+				var results = $(resultSelector);
+				var action = validationAction;
+				var textBox = $(dataSelector);
+				
+				var validate = function() {
+					var dataValidator = new $.simpleValidator.ui.spinningButton(button);
+					dataValidator.spinButton();
 
-    var validate = function() {
-        var dataValidator = new simpleValidator.spinningButton(button);
-        dataValidator.spinButton();
+					action(textBox.val()).done(function(result) {
+						results.html(result);
+					})
+						.fail(function(data, statusText, error) {
+						results.html("Error! " + status + "<br/>" + error);
+					})
+						.always(function() {
+						dataValidator.stopButton();
+					});
+				};
+				
+				button.on('click', function(event) {
+					event.preventDefault();
+					validate();
+				});
+			}
 
-        action(textBox.val()).done(function(result) {
-            results.html(result);
-        })
-        .fail(function (data, statusText, error) {
-            results.html("Error! " + status + "<br/>" + error);
-        })
-        .always(function() {
-            dataValidator.stopButton();
-        });
-    };
+			$.simpleValidator = $.simpleValidator || {};
+			$.simpleValidator.ui = $.simpleValidator.ui || {
+				spinningButton: function(selector) {
+					var button = $(selector);
+					var spin = function() {
+						if (button.children(".fa").length !== 1) {
+							button.append("<i class='fa'></i>");
+						}
 
-    button.on('click', function (event) {
-        event.preventDefault();
-        validate();
-    });
-}
+						$(button).children(".fa").addClass("fa-circle-o-notch fa-spin");
+					},
+						stop = function() {
+							$(button).children(".fa").removeClass("fa-circle-o-notch fa-spin");
+						};
 
-var simpleValidator = simpleValidator || {
-    spinningButton: function (selector) {
-        var button = $(selector);
-        var spin = function () {
-                if (button.children(".fa").length !== 1) {
-                    button.append("<i class='fa'></i>");
-                }
-
-                $(button).children(".fa").addClass("fa-circle-o-notch fa-spin");
-            },
-            stop = function () {
-                $(button).children(".fa").removeClass("fa-circle-o-notch fa-spin");
-            };
-
-        return {
-            spinButton: spin,
-            stopButton: stop
-        };
-    }
-}
+					return {
+						spinButton: spin,
+						stopButton: stop
+					};
+				}
+			};
+			
+			$.simpleValidator.validators = $.simpleValidator.validators || {
+				// Built-in validator to post the contents of your textbox to a url
+				// Whatever the server sends back will be dropped into the result element
+				urlValidator: function(url, method, paramName) {
+					return function(paramValue) {
+						return $.ajax({
+							url: url,
+							contentType: 'application/json',
+							dataType: 'html',
+							type: method,
+							data: { paramName: paramValue }
+						});
+					}
+				}
+			};
