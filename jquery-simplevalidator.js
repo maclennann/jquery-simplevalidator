@@ -58,17 +58,20 @@ $.simpleValidator.ui = $.simpleValidator.ui || {
 };
 
 $.simpleValidator.validators = $.simpleValidator.validators || {
-	// Built-in validator to post the contents of your textbox to a url
-	// Whatever the server sends back will be dropped into the result element
-	urlValidator: function(url, method, paramName) {
-		return function(paramValue) {
-			return $.ajax({
-				url: url,
-				contentType: 'application/json',
-				dataType: 'html',
-				type: method,
-				data: { paramName: paramValue }
-			});
-		}
-	}
+    // Built-in validator to post the contents of your textbox to a url
+    // Whatever the server sends back will be dropped into the result element
+    urlValidator: function (url, method, paramName) {
+        return function (paramValue) {
+            var data = {};
+            data[paramName] = paramValue;
+
+            return $.ajax({
+                url: url,
+                contentType: 'application/json',
+                dataType: 'html',
+                type: method,
+                data: data
+            });
+        }
+    }
 };
