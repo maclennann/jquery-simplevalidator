@@ -20,4 +20,12 @@ If you need something bigger, better, and more powerful, look toward [jquery-val
 ### How To Use ###
 Basically, you bind it to your button, tell it how to find your input and output elements, and tell it what it's supposed to use for a validator.
 
+```javascript
+$("#button").simpleValidator("#textbox", "#messagespan", validationFunction);
+```
+
+### Demo ###
+
+You can see that demo file live [here](http://cdn.rawgit.com/maclennann/5a6cb955eec6df664229/raw/c5bce6d6de314538ae127ffe95023fddf0eb72c4/demo.html).
+
 Otherwise, see the demo document elsewhere in this gist.
