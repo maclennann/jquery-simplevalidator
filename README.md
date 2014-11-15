@@ -28,6 +28,8 @@ $("#button").simpleValidator("#textbox", "#messagespan", validationFunction);
 
 There is a demo file in this gist. You can see it live [here](http://rawgit.com/maclennann/5a6cb955eec6df664229/raw/b804c6b565209a1bf5d18fc981a7146c4130b754/demo.html).
 
+![](http://blog.normmaclennan.com/content/images/2014/Nov/simplevalidator.gif)
+
 ### Advanced Usage ###
 
 This is getting a little bit into "use a real plugin" territory, but javascript's golden rule is "you can make anything do anything if you try hard enough."
