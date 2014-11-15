@@ -18,9 +18,7 @@ $.fn.simpleValidator = function (dataSelector, resultSelector, validationAction)
         var dataValidator = new simpleValidator.spinningButton(button);
         dataValidator.spinButton();
 
-	var what = textBox.val();	
-
-        action(what).done(function(result) {
+        action(textBox.val()).done(function(result) {
             results.html(result);
         })
         .fail(function (data, statusText, error) {
@@ -31,7 +29,7 @@ $.fn.simpleValidator = function (dataSelector, resultSelector, validationAction)
         });
     };
 
-    button.on('click', function () {
+    button.on('click', function (event) {
         event.preventDefault();
         validate();
     });
