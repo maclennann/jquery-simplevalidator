@@ -26,7 +26,7 @@ $("#button").simpleValidator("#textbox", "#messagespan", validationFunction);
 
 ### Demo ###
 
-There is a demo file in this gist. You can see it live [here](http://rawgit.com/maclennann/5a6cb955eec6df664229/raw/b804c6b565209a1bf5d18fc981a7146c4130b754/demo.html).
+There is a demo file in this gist. You can see it live [here](http://cdn.rawgit.com/maclennann/jquery-simplevalidator/raw/b2dd7f71d24087e72e7e392b4e0d3c43cb4d849d/demo.html).
 
 ![](http://blog.normmaclennan.com/content/images/2014/Nov/simplevalidator.gif)
 
