@@ -6,6 +6,8 @@
 // dataSelector must be a selector that targets a textbox (your input for validation)
 // resultSelector must be a selector that targets a div into which the validation results are printed
 // validationAction must be a function that expects a string and returns a promise
+$(function(){
+
 $.fn.simpleValidator = function(dataSelector, resultSelector, validationAction) {
 
 	// Store all this so the closure has access when we actually have to run it.
@@ -75,3 +77,5 @@ $.simpleValidator.validators = $.simpleValidator.validators || {
         }
     }
 };
+
+}());
